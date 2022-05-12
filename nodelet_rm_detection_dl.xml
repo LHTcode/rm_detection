@@ -1,5 +1,5 @@
 <library path="lib/librm_detection_dl">
-    <class name="rm_detection_dl/detection_dl" type="rm_detection_dl::DetectionDL" base_class_type="nodelet::Nodelet">
+    <class name="rm_detection_dl/DetectionDL" type="rm_detection_dl::DetectionDL" base_class_type="nodelet::Nodelet">
         <description>This is a rm_detection_dl nodelet.</description>
     </class>
 </library>
