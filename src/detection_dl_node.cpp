@@ -10,6 +10,6 @@ int main(int argc, char** argv)
     ros::init(argc, argv, "test_detection_node");
     ros::NodeHandle nh;
     rm_detection_dl::DetectionDL detector(nh);
-    detector.initialize();
+    detector.onInit();
     ros::spin();
 }
