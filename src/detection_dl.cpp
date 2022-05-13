@@ -6,19 +6,27 @@
 namespace rm_detection_dl{
 void DetectionDL::onInit()
 {
-    NODELET_DEBUG("Initializing nodelet...");
-    auto& nh = getPrivateNodeHandle();
-    this->it_ = std::make_shared<image_transport::ImageTransport>(nh);
-    img_sub_ = it_->subscribeCamera(
-            "/galaxy_camera/image_raw" ,
-            10,
-            &DetectionDL::receiverCallback, this,
-            image_transport::TransportHints("raw",ros::TransportHints()));
+    this->it_ = std::make_shared<image_transport::ImageTransport>(this->nh_);
+//    img_sub_ = it_->subscribeCamera(
+//            "/galaxy_camera/image_raw" ,
+//            10,
+//            &DetectionDL::receiverCallback, this,
+//            image_transport::TransportHints("raw",ros::TransportHints()));
+    double msg;
+    nh_.getParam("hello", msg);
+    ROS_INFO("hello=%lf", msg);
+    std_msgs::String str_msg;
+    str_msg.data = "HELLO!";
 
+    test_pub_ = nh_.advertise<std_msgs::String>("hello", 10);
+    while(ros::ok())
+    {
+        test_pub_.publish(str_msg);
+    }
 }
 void DetectionDL::initialize()
 {
-
+    this->onInit();
 }
 void DetectionDL::receiverCallback(const sensor_msgs::ImageConstPtr& img_msg, const sensor_msgs::CameraInfoConstPtr& img_info_msg)
 {
@@ -28,5 +36,5 @@ void DetectionDL::receiverCallback(const sensor_msgs::ImageConstPtr& img_msg, co
 }
 
 
-PLUGINLIB_EXPORT_CLASS(rm_detection_dl::DetectionDL, nodelet::Nodelet)
+//PLUGINLIB_EXPORT_CLASS(rm_detection_dl::DetectionDL, nodelet::Nodelet)
 }
